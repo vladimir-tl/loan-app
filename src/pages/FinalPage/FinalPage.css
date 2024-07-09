@@ -1,0 +1,45 @@
+.FinalPage {
+    background-color: #FDCC00;
+    padding: 2.5em;
+    border-radius: 0.625em;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    color: #000000;
+    text-align: start;
+}
+
+.FinalPage .lang {
+    position: static;
+    top: 0;
+    right: 0;
+    background: none;
+    width: 100%;
+    text-align: start;
+}
+
+.full-name {
+    width: 25%;
+}
+
+.score {
+    display: flex;
+    justify-content: space-between;
+}
+
+h1,
+h2 {
+    text-align: center;
+    margin-top: 1.25em;
+    font-weight: 600;
+}
+
+p {
+    font-size: 1.2em;
+    margin: 0.625em 0;
+}
+
+select {
+    padding: 0.3125em;
+    margin-top: 0.625em;
+}

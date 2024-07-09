@@ -1,0 +1,49 @@
+.LoanCalculator {
+  background-color: #FDCC00;
+  padding: 2.5em;
+  border-radius: 0.625em;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: #000000;
+  text-align: start;
+}
+
+.monthly-payment {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.input-box {
+  position: relative;
+  margin: 0.625em 0;
+}
+
+.input-box input {
+  background: #fff;
+  border-radius: 0.6875em;
+  width: 12.5em;
+  border: 0.125em solid black;
+}
+
+.input-box label {
+  position: absolute;
+  top: -0.625em;
+  left: 0.4375em;
+}
+
+.min-max {
+  display: flex;
+  justify-content: space-between;
+}
+
+.min-max span {
+  font-weight: 600;
+}
+
+.error {
+  color: red;
+  margin-top: 0.625em;
+}
