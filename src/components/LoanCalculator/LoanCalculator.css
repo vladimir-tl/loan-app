@@ -24,14 +24,13 @@
 .input-box input {
   background: #fff;
   border-radius: 0.6875em;
-  width: 12.5em;
   border: 0.125em solid black;
 }
 
 .input-box label {
   position: absolute;
-  top: -0.625em;
-  left: 0.4375em;
+  top: -0.425em;
+  left: 0.6375em;
 }
 
 .min-max {
@@ -44,6 +43,7 @@
 }
 
 .error {
+  text-align: center;
   color: red;
   margin-top: 0.625em;
 }
