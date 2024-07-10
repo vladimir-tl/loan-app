@@ -8,33 +8,61 @@ interface LoanCalculatorProps {
 }
 
 const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
-    const [amount, setAmount] = useState<number>(500);
-    const [period, setPeriod] = useState<number>(12);
+    const [amount, setAmount] = useState<string>('500');
+    const [period, setPeriod] = useState<string>('12');
     const [monthlyPayment, setMonthlyPayment] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        calculateLoan(amount, period);
+        calculateLoan(Number(amount), Number(period));
     }, [amount, period]);
 
     const calculateLoan = async (amount: number, period: number) => {
         try {
+            setLoading(true);
             const response = await axios.get<LoanCalcResponse>('https://backend.tallinn-learning.ee/api/loan-calc', {
                 params: { amount, period }
             });
-            if (response.status === 200) {
-                setMonthlyPayment(response.data.paymentAmountMonthly);
-                setError(null);
-            } else {
-                setError("Oops, something went wrong");
-            }
+
+            const delay = Math.random() * 500 + 1000;
+
+            setTimeout(() => {
+                if (response.status === 200) {
+                    setMonthlyPayment(response.data.paymentAmountMonthly);
+                    setError(null);
+                } else {
+                    setError("Oops, something went wrong");
+                }
+                setLoading(false);
+            }, delay);
+
         } catch (error) {
             setError("Oops, something went wrong");
+            setLoading(false);
         }
     };
 
     const handleApplyNow = () => {
-        showLoginPopup(amount, period, monthlyPayment);
+        showLoginPopup(Number(amount), Number(period), monthlyPayment);
+    };
+
+    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAmount(e.target.value);
+    };
+
+    const handlePeriodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPeriod(e.target.value);
+    };
+
+    const handleAmountBlur = () => {
+        let value = Math.min(Math.max(Number(amount), 500), 10000).toString();
+        setAmount(value);
+    };
+
+    const handlePeriodBlur = () => {
+        let value = Math.min(Math.max(Number(period), 12), 36).toString();
+        setPeriod(value);
     };
 
     return (
@@ -43,8 +71,19 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
             <p>Estimate your monthly payments based on the chosen loan amount and time period.</p>
             <div className='input-box'>
                 <label data-testid="small-loan-calculator-field-amount">Amount</label>
-                <input type="text" value={amount} readOnly />
-                <input type="range" min="500" max="10000" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
+                <input
+                    type="number"
+                    value={amount}
+                    onChange={handleAmountChange}
+                    onBlur={handleAmountBlur}
+                />
+                <input
+                    type="range"
+                    min="500"
+                    max="10000"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                />
                 <div className='min-max'>
                     <span>500</span>
                     <span>10000</span>
@@ -53,15 +92,26 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
 
             <div className='input-box'>
                 <label data-testid="small-loan-calculator-field-period">Period</label>
-                <input type="text" value={period} readOnly />
-                <input type="range" min="12" max="36" value={period} onChange={(e) => setPeriod(Number(e.target.value))} />
+                <input
+                    type="number"
+                    value={period}
+                    onChange={handlePeriodChange}
+                    onBlur={handlePeriodBlur}
+                />
+                <input
+                    type="range"
+                    min="12"
+                    max="36"
+                    value={period}
+                    onChange={(e) => setPeriod(e.target.value)}
+                />
                 <div className='min-max'>
                     <span>12</span>
                     <span>36</span>
                 </div>
             </div>
 
-            <div className="monthly-payment">Monthly payment <br/> {monthlyPayment}</div>
+            <div className="monthly-payment">Monthly payment <br /> {monthlyPayment}</div>
             {error && <div className="error">{error}</div>}
             <button onClick={handleApplyNow}>Apply Now</button>
         </div>
