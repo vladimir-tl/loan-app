@@ -32,7 +32,7 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
                 params: { amount, period }
             });
 
-            const delay = Math.random() * 500 + 1000;
+            const delay = Math.random() * 500 + 2000;
 
             setTimeout(() => {
                 if (response.status === 200) {
