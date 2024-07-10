@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './LoanCalculator.css';
 import { LoanCalcResponse } from '../../tests/interfaces/interfaces';
@@ -14,8 +14,15 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
+    const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+
     useEffect(() => {
-        calculateLoan(Number(amount), Number(period));
+        if (debounceTimer.current) {
+            clearTimeout(debounceTimer.current);
+        }
+        debounceTimer.current = setTimeout(() => {
+            calculateLoan(Number(amount), Number(period));
+        }, 500);
     }, [amount, period]);
 
     const calculateLoan = async (amount: number, period: number) => {
