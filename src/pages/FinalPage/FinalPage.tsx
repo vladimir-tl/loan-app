@@ -28,21 +28,22 @@ const FinalPage: React.FC<FinalPageProps> = ({ authData, amount, period, monthly
                 <label className='full-name'>Full Name</label>
                 <input type="text" value={`${authData.name} ${authData.surname}`} disabled />
             </div>
-            <label className='lang'>
-                Communication Language
-                <br/>
-                <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-                    <option value="English">English</option>
-                    <option value="Russian">Russian</option>
-                    <option value="Estonian">Estonian</option>
+
+            <div className='input-box'>
+            <label id='lang'>Communication Language</label>
+                <select value={language} onChange={(e) => setLanguage(e.target.value)} data-testid="ib-small-loan-calculator-field-language">
+                    <option value="English" data-testid="ib-small-loan-calculator-field-language-option-en">English</option>
+                    <option value="Russian" data-testid="ib-small-loan-calculator-field-language-option-ru">Russian</option>
+                    <option value="Estonian" data-testid="ib-small-loan-calculator-field-language-option-est">Estonian</option>
                 </select>
-            </label>
+            </div>
+
             <button onClick={handleContinue}>Continue</button>
             {showSuccessPopup && (
                 <div className="popup-overlay">
                     <div className="popup-container">
                         <p>Success!</p>
-                        <button onClick={handleOk}>OK</button>
+                        <button onClick={handleOk} data-testid="ib-small-loan-calculator-field-ok">OK</button>
                     </div>
                 </div>
             )}

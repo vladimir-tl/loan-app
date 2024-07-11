@@ -9,13 +9,12 @@
     text-align: start;
 }
 
-.FinalPage .lang {
-    position: static;
-    top: 0;
-    right: 0;
-    background: none;
-    width: 100%;
-    text-align: start;
+.FinalPage #lang {
+    width: 57%;
+}
+
+.FinalPage .input-box select option {
+    font-size: 1em;
 }
 
 .full-name {
@@ -37,9 +36,4 @@ h2 {
 p {
     font-size: 1.2em;
     margin: 0.625em 0;
-}
-
-select {
-    padding: 0.3125em;
-    margin-top: 0.625em;
 }

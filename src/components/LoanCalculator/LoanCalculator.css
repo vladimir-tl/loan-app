@@ -15,22 +15,24 @@
   font-size: 1.5em;
   font-weight: 600;
 }
+.monthly-payment span{
+  font-size: 1.5em;
+  font-weight: 600;
+}
 
 .input-box {
   position: relative;
   margin: 0.625em 0;
 }
 
-.input-box input {
-  background: #fff;
-  border-radius: 0.6875em;
-  border: 0.125em solid black;
-}
-
 .input-box label {
   position: absolute;
   top: -0.425em;
   left: 0.6375em;
+}
+
+.input-box select option {
+  font-size: .6em;
 }
 
 .min-max {

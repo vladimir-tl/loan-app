@@ -32,11 +32,11 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
                 params: { amount, period }
             });
 
-            const delay = Math.random() * 500 + 2000;
+            const delay = Math.random() * 500 + 1000;
 
             setTimeout(() => {
                 if (response.status === 200) {
-                    setMonthlyPayment(response.data.paymentAmountMonthly);
+                    setMonthlyPayment(response.data.paymentAmountMonthly + " €");
                     setError(null);
                 } else {
                     setError("Oops, something went wrong");
@@ -58,7 +58,7 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
         setAmount(e.target.value);
     };
 
-    const handlePeriodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         setPeriod(e.target.value);
     };
 
@@ -67,9 +67,16 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
         setAmount(value);
     };
 
-    const handlePeriodBlur = () => {
-        let value = Math.min(Math.max(Number(period), 12), 36).toString();
-        setPeriod(value);
+    const renderOptions = () => {
+        const options = [];
+        for (let i = 12; i <= 36; i++) {
+            options.push(
+                <option key={i} value={i} data-testid={`ib-small-loan-calculator-button-period-option-${i - 12}`}>
+                    {i}
+                </option>
+            );
+        }
+        return options;
     };
 
     return (
@@ -77,12 +84,13 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
             <h1>Calculate your monthly payment</h1>
             <p>Estimate your monthly payments based on the chosen loan amount and time period.</p>
             <div className='input-box'>
-                <label data-testid="small-loan-calculator-field-amount">Amount</label>
+                <label>Amount</label>
                 <input
                     type="number"
                     value={amount}
                     onChange={handleAmountChange}
                     onBlur={handleAmountBlur}
+                    data-testid="id-small-loan-calculator-field-amount"
                 />
                 <input
                     type="range"
@@ -98,13 +106,10 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
             </div>
 
             <div className='input-box'>
-                <label data-testid="small-loan-calculator-field-period">Period</label>
-                <input
-                    type="number"
-                    value={period}
-                    onChange={handlePeriodChange}
-                    onBlur={handlePeriodBlur}
-                />
+                <label>Period</label>
+                <select value={period} onChange={handlePeriodChange} data-testid="ib-small-loan-calculator-field-period">
+                    {renderOptions()}
+                </select>
                 <input
                     type="range"
                     min="12"
@@ -118,9 +123,9 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
                 </div>
             </div>
 
-            <div className="monthly-payment">Monthly payment <br /> {monthlyPayment}</div>
+            <div className="monthly-payment">Monthly payment <br /> <span>{monthlyPayment}</span></div>
             {error && <div className="error">{error}</div>}
-            <button onClick={handleApplyNow}>Apply Now</button>
+            <button onClick={handleApplyNow} data-testid="id-small-loan-calculator-field-apply">Apply Now</button>
         </div>
     );
 };
