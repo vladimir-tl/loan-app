@@ -27,7 +27,7 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ onContinue, onClose }) => {
     return (
         <div className="popup-overlay">
             <div className="popup-container">
-                <button className="close-button" onClick={onClose}>×</button>
+                <button className="close-button" onClick={onClose} data-testid="login-popup-close-button">×</button>
                 <h2>Login</h2>
                 <input 
                     type="text" 
@@ -35,6 +35,7 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ onContinue, onClose }) => {
                     onChange={(e) => setUsername(e.target.value)} 
                     placeholder='Username' 
                     className='login-input'
+                    data-testid="login-popup-username-input"
                 />
                 <input 
                     type="password" 
@@ -42,8 +43,9 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ onContinue, onClose }) => {
                     onChange={(e) => setPassword(e.target.value)} 
                     placeholder='Password' 
                     className='login-input'
+                    data-testid="login-popup-password-input"
                 />
-                <button onClick={handleContinue} disabled={!isFormValid}>Continue</button>
+                <button onClick={handleContinue} disabled={!isFormValid} data-testid="login-popup-continue-button">Continue</button>
             </div>
         </div>
     );

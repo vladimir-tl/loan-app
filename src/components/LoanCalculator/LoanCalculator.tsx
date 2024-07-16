@@ -98,6 +98,7 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
                     max="10000"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
+                    data-testid="id-small-loan-calculator-field-amount-slider"
                 />
                 <div className='min-max'>
                     <span>500</span>
@@ -116,6 +117,7 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
                     max="36"
                     value={period}
                     onChange={(e) => setPeriod(e.target.value)}
+                    data-testid="ib-small-loan-calculator-field-period-slider"
                 />
                 <div className='min-max'>
                     <span>12</span>
@@ -123,7 +125,7 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
                 </div>
             </div>
 
-            <div className="monthly-payment">Monthly payment <br /> <span>{monthlyPayment}</span></div>
+            <div className="monthly-payment">Monthly payment <br /> <span data-testid="ib-small-loan-calculator-field-monthlyPayment">{monthlyPayment}</span></div>
             {error && <div className="error">{error}</div>}
             <button onClick={handleApplyNow} data-testid="id-small-loan-calculator-field-apply">Apply Now</button>
         </div>
