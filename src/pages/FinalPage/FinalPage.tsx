@@ -20,30 +20,34 @@ const FinalPage: React.FC<FinalPageProps> = ({ authData, amount, period, monthly
     return (
         <div className="FinalPage">
             <h1>Loan Details</h1>
-            <p className='score'>Amount: <span>{amount} €</span></p>
-            <p className='score'>Monthly Payment: <span>{monthlyPayment} €</span></p>
-            <p className='score'>Period: <span>{period} months</span></p>
+            <p className='score'>Amount: <span data-testid="final-page-amount">{amount} €</span></p>
+            <p className='score'>Monthly Payment: <span data-testid="final-page-monthly-payment">{monthlyPayment} €</span></p>
+            <p className='score'>Period: <span data-testid="final-page-period">{period} months</span></p>
             <h1>Your Information</h1>
             <div className='input-box'>
                 <label className='full-name'>Full Name</label>
-                <input type="text" value={`${authData.name} ${authData.surname}`} disabled />
+                <input type="text" value={`${authData.name} ${authData.surname}`} disabled data-testid="final-page-full-name" />
             </div>
 
             <div className='input-box'>
-            <label id='lang'>Communication Language</label>
-                <select value={language} onChange={(e) => setLanguage(e.target.value)} data-testid="ib-small-loan-calculator-field-language">
-                    <option value="English" data-testid="ib-small-loan-calculator-field-language-option-en">English</option>
-                    <option value="Russian" data-testid="ib-small-loan-calculator-field-language-option-ru">Russian</option>
-                    <option value="Estonian" data-testid="ib-small-loan-calculator-field-language-option-est">Estonian</option>
+                <label id='lang'>Communication Language</label>
+                <select
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                    data-testid="final-page-communication-language"
+                >
+                    <option value="English" data-testid="final-page-communication-language-option-en">English</option>
+                    <option value="Russian" data-testid="final-page-communication-language-option-ru">Russian</option>
+                    <option value="Estonian" data-testid="final-page-communication-language-option-est">Estonian</option>
                 </select>
             </div>
 
-            <button onClick={handleContinue}>Continue</button>
+            <button onClick={handleContinue} data-testid="final-page-continue-button">Continue</button>
             {showSuccessPopup && (
                 <div className="popup-overlay">
                     <div className="popup-container">
                         <p>Success!</p>
-                        <button onClick={handleOk} data-testid="ib-small-loan-calculator-field-ok">OK</button>
+                        <button onClick={handleOk} data-testid="final-page-success-ok-button">OK</button>
                     </div>
                 </div>
             )}
