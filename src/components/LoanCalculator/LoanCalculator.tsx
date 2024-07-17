@@ -62,14 +62,9 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
         setPeriod(e.target.value);
     };
 
-    const handleAmountBlur = () => {
-        let value = Math.min(Math.max(Number(amount), 500), 10000).toString();
-        setAmount(value);
-    };
-
     const renderOptions = () => {
         const options = [];
-        for (let i = 12; i <= 36; i++) {
+        for (let i = 12; i <= 36; i+=4) {
             options.push(
                 <option key={i} value={i} data-testid={`ib-small-loan-calculator-button-period-option-${i - 12}`}>
                     {i}
@@ -89,7 +84,6 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
                     type="number"
                     value={amount}
                     onChange={handleAmountChange}
-                    onBlur={handleAmountBlur}
                     data-testid="id-small-loan-calculator-field-amount"
                 />
                 <input
@@ -107,7 +101,7 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
             </div>
 
             <div className='input-box'>
-                <label>Period</label>
+                <label className='period-label'>Period (month)</label>
                 <select value={period} onChange={handlePeriodChange} data-testid="ib-small-loan-calculator-field-period">
                     {renderOptions()}
                 </select>
@@ -115,6 +109,7 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
                     type="range"
                     min="12"
                     max="36"
+                    step={4}
                     value={period}
                     onChange={(e) => setPeriod(e.target.value)}
                     data-testid="ib-small-loan-calculator-field-period-slider"
@@ -126,7 +121,7 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
             </div>
 
             <div className="monthly-payment">Monthly payment <br /> <span data-testid="ib-small-loan-calculator-field-monthlyPayment">{monthlyPayment}</span></div>
-            {error && <div className="error">{error}</div>}
+            {error && <div className="error" data-testid="id-small-loan-calculator-field-error">{error}</div>}
             <button onClick={handleApplyNow} data-testid="id-small-loan-calculator-field-apply">Apply Now</button>
         </div>
     );
