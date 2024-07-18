@@ -30,6 +30,9 @@
   top: -0.425em;
   left: 0.6375em;
 }
+.period-label {
+  width: 36%;
+}
 
 .input-box select option {
   font-size: .6em;

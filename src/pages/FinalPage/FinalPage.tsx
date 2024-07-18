@@ -21,8 +21,8 @@ const FinalPage: React.FC<FinalPageProps> = ({ authData, amount, period, monthly
         <div className="FinalPage">
             <h1>Loan Details</h1>
             <p className='score'>Amount: <span data-testid="final-page-amount">{amount} €</span></p>
-            <p className='score'>Monthly Payment: <span data-testid="final-page-monthly-payment">{monthlyPayment} €</span></p>
-            <p className='score'>Period: <span data-testid="final-page-period">{period} months</span></p>
+            <p className='score'>Monthly Payment: <span data-testid="final-page-monthly-payment">{monthlyPayment}</span></p>
+            <p className='score'>Period (month): <span data-testid="final-page-period">{period} months</span></p>
             <h1>Your Information</h1>
             <div className='input-box'>
                 <label className='full-name'>Full Name</label>
