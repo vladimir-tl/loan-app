@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FinalPage.css';
-import { FinalPageProps } from '../../tests/interfaces/interfaces';
+import { FinalPageProps } from '../../interfaces/interfaces';
 
 const FinalPage: React.FC<FinalPageProps> = ({ authData, amount, period, monthlyPayment }) => {
     const navigate = useNavigate();

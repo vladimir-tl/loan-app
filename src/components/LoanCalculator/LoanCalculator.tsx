@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, forwardRef } from 'react';
 import axios from 'axios';
 import './LoanCalculator.css';
-import { LoanCalcResponse } from '../../tests/interfaces/interfaces';
+import { LoanCalcResponse } from '../../interfaces/interfaces';
+import Container from "../Container/Container";
 
 interface LoanCalculatorProps {
     showLoginPopup: (amount: number, period: number, monthlyPayment: string) => void;
 }
 
-const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
+const LoanCalculator = forwardRef<HTMLDivElement, LoanCalculatorProps>(({ showLoginPopup }, ref) => {
     const [amount, setAmount] = useState<string>('500');
     const [period, setPeriod] = useState<string>('12');
     const [monthlyPayment, setMonthlyPayment] = useState<string>('');
@@ -75,7 +76,7 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
     };
 
     return (
-        <div className="LoanCalculator">
+        <Container ref={ref}>
             <h1>Calculate your monthly payment</h1>
             <p>Estimate your monthly payments based on the chosen loan amount and time period.</p>
             <div className='input-box'>
@@ -123,8 +124,8 @@ const LoanCalculator: React.FC<LoanCalculatorProps> = ({ showLoginPopup }) => {
             <div className="monthly-payment">Monthly payment <br /> <span data-testid="ib-small-loan-calculator-field-monthlyPayment">{monthlyPayment}</span></div>
             {error && <div className="error" data-testid="id-small-loan-calculator-field-error">{error}</div>}
             <button onClick={handleApplyNow} data-testid="id-small-loan-calculator-field-apply">Apply Now</button>
-        </div>
+        </Container>
     );
-};
+});
 
 export default LoanCalculator;
