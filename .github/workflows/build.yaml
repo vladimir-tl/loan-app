@@ -27,7 +27,8 @@ jobs:
         run: npm ci
 
       - name: Run application locally
-        run: npm start
+        run: |
+          npm start & npx wait-on http://localhost:3000
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
