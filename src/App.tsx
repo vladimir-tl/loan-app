@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Navigate, Route, Routes, useNavigate} from 'react-router-dom';
 import LoginPopup from './components/LoginPopup/LoginPopup';
 import FinalPage from './pages/FinalPage/FinalPage';
-import {AuthResponse} from './tests/interfaces/interfaces';
+import {AuthResponse} from './interfaces/interfaces';
 import LoanPage from "./pages/LoanPage/LoanPage";
 
 const App: React.FC = () => {

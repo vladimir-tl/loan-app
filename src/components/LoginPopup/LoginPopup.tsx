@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './LoginPopup.css';
-import { AuthResponse } from '../../tests/interfaces/interfaces';
+import { AuthResponse } from '../../interfaces/interfaces';
 
 interface LoginPopupProps {
     onContinue: (data: AuthResponse) => void;

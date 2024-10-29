@@ -2,11 +2,6 @@ export interface LoanCalcResponse {
     paymentAmountMonthly: string;
 }
 
-// export interface AuthRequest {
-//     username: string;
-//     password: string;
-// }
-
 export interface AuthResponse {
     name: string;
     surname: string;

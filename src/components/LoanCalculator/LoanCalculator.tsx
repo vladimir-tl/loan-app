@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, forwardRef } from 'react';
 import axios from 'axios';
 import './LoanCalculator.css';
-import { LoanCalcResponse } from '../../tests/interfaces/interfaces';
+import { LoanCalcResponse } from '../../interfaces/interfaces';
 import Container from "../Container/Container";
 
 interface LoanCalculatorProps {
