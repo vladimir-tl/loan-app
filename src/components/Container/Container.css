@@ -1,0 +1,10 @@
+.Container {
+  background-color: #FDCC00;
+  padding: 2.5em;
+  border-radius: 0.625em;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: #000000;
+}

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
-import LoanCalculator from './components/LoanCalculator/LoanCalculator';
+import React, {useState} from 'react';
+import {Navigate, Route, Routes, useNavigate} from 'react-router-dom';
 import LoginPopup from './components/LoginPopup/LoginPopup';
 import FinalPage from './pages/FinalPage/FinalPage';
-import { AuthResponse } from './tests/interfaces/interfaces';
+import {AuthResponse} from './tests/interfaces/interfaces';
+import LoanPage from "./pages/LoanPage/LoanPage";
 
 const App: React.FC = () => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const App: React.FC = () => {
         <div className='App'>
             {showPopup && <LoginPopup onContinue={handleAuthSuccess} onClose={handleClosePopup} />}
             <Routes>
-                <Route path="/small-loan" element={<LoanCalculator showLoginPopup={handleLoanDetails} />} />
+                <Route path="/small-loan" element={<LoanPage showLoginPopup={handleLoanDetails} />} />
                 <Route path="/loan-decision" element={
                     loanDetails && authData ? 
                     <FinalPage authData={authData} {...loanDetails} /> :
