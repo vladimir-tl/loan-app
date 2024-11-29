@@ -29,8 +29,18 @@ const LoanCalculator = forwardRef<HTMLDivElement, LoanCalculatorProps>(({ showLo
     const calculateLoan = async (amount: number, period: number) => {
         try {
             setLoading(true);
-            const response = await axios.get<LoanCalcResponse>('https://backend.tallinn-learning.ee/api/loan-calc', {
-                params: { amount, period }
+            // const response = await axios.get<LoanCalcResponse>('https://backend.tallinn-learning.ee/api/loan-calc', {
+            //     params: { amount, period }
+            // });
+            const isLocalhost = window.location.hostname === 'localhost';
+            const isCI = process.env.CI === 'true';
+
+            const baseURL = isLocalhost && !isCI
+                ? 'http://localhost:8080'
+                : 'https://backend.tallinn-learning.ee';
+
+            const response = await axios.get<LoanCalcResponse>(`${baseURL}/api/loan-calc`, {
+                params: { amount, period },
             });
 
             // const delay = Math.random() * 500 + 1000;
