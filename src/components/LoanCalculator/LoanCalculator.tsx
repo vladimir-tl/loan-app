@@ -34,6 +34,7 @@ const LoanCalculator = forwardRef<HTMLDivElement, LoanCalculatorProps>(({ showLo
             });
 
             // const delay = Math.random() * 500 + 1000;
+            // imitate zero delay
             const delay = 0
 
             setTimeout(() => {
