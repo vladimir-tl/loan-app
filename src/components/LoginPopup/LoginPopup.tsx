@@ -13,11 +13,11 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ onContinue, onClose }) => {
 
     const handleContinue = () => {
         const mockResponse: AuthResponse = {
-            name: 'Илья',
-            surname: 'Исаенко',
-            communicationLanguage: 'Russian',
-            phoneNumber: "+79277507400",
-            emailAddress: "ilya@gmail.com",
+            name: 'Customer-Name',
+            surname: 'Customer-Surname',
+            communicationLanguage: 'English',
+            phoneNumber: "+3721234567",
+            emailAddress: "hello@domain.com",
         };
         onContinue(mockResponse);
     };
