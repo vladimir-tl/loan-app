@@ -81,3 +81,25 @@ test('open and verify with invalid contract', async ({ page }) => {
         .getByTestId('ib-small-loan-calculator-field-monthlyPayment')
         .textContent()).toContain('undefined')
 })
+
+test('open and verify with missing body', async ({ page }) => {
+
+    await page.route(routeToMock, async (route) => {
+        await route.fulfill({
+            status: 200,
+        })
+    })
+
+    await page.goto('http://localhost:3000/small-loan')
+
+    // we have to wait until response received to be displayed
+    await page.waitForResponse(routeToMock)
+
+    const amountText = await page
+        .getByTestId('ib-small-loan-calculator-field-monthlyPayment')
+        .textContent();
+
+    expect (await page
+        .getByTestId('ib-small-loan-calculator-field-monthlyPayment')
+        .textContent()).toContain('undefined')
+})
