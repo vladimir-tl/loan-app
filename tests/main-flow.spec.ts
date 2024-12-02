@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const serviceURL = 'http://localhost:3000';
 
+// this flow rely on backend but not checking it
 test('main flow', async ({ page }) => {
   await page.goto(serviceURL);
   await page.getByTestId('id-small-loan-calculator-field-apply').click();
@@ -14,6 +15,7 @@ test('main flow', async ({ page }) => {
   await page.getByTestId('final-page-success-ok-button').click();
 });
 
+// this flow don't rely on backend
 test('redirect flow', async ({ page, request }) => {
   await page.goto(serviceURL);
   await page.getByTestId('id-image-element-button-image-1').click();
