@@ -12,8 +12,9 @@ test.describe('Image Element', () => {
     );
 
     const imageContainer = component.locator('.ImageContainer');
-    const style = await imageContainer.evaluate((el: HTMLElement) => el.style.backgroundImage);
-    expect(style).toBe(`url(\"/images/example-image.jpg\")"`);
+    // @ts-ignore
+    const style = await imageContainer.evaluate((el: HTMLElement)  => el.style.backgroundImage);
+    expect(style).toBe(`url(\"/images/example-image.jpg\")`);
   });
 
   test('should render a button with the correct text when buttonText is provided', async ({ mount }) => {
@@ -24,7 +25,7 @@ test.describe('Image Element', () => {
         <ImageElement id="2" buttonText={buttonText} imageRef="example.jpg" onClickButton={onClickButton} />
     );
 
-    const button = component.locator(`[data-testid="id-image-element-button-2"]`);
+    const button = component.getByTestId("id-image-element-button-2");
     await expect(button).toHaveText(buttonText);
   });
 
@@ -35,7 +36,7 @@ test.describe('Image Element', () => {
         <ImageElement id="3" imageRef="example.jpg" onClickButton={onClickButton} />
     );
 
-    const button = component.locator('[data-testid="id-image-element-button-3"]');
+    const button = component.getByTestId("id-image-element-button-3");
     await expect(button).not.toBeVisible();
   });
 
@@ -44,6 +45,7 @@ test.describe('Image Element', () => {
     let clickTriggered = false;
 
     const onClickButton = () => {
+      console.log();
       clickTriggered = true;
     };
 
@@ -51,7 +53,7 @@ test.describe('Image Element', () => {
         <ImageElement id="4" buttonText={buttonText} imageRef="example.jpg" onClickButton={onClickButton} />
     );
 
-    const button = component.locator(`[data-testid="id-image-element-button-4"]`);
+    const button = component.getByTestId("id-image-element-button-4");
 
     await button.click();
 

@@ -1,8 +1,11 @@
 import { defineConfig, devices } from '@playwright/experimental-ct-react17';
+import dotenv from 'dotenv';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+dotenv.config();
+
 export default defineConfig({
   testDir: './ct-tests',
   /* The base directory, relative to the config file, for snapshot files created with toMatchSnapshot and toHaveScreenshot. */
