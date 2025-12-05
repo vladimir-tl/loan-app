@@ -1,8 +1,8 @@
-import {expect, test} from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 const serviceURL = 'http://localhost:3000';
 
-test.skip('default flow with mock', async ({page}) => {
+test('default flow with mock', async ({page}) => {
     // we have to define mock before navigation to the page
     // our json response is
     // {"paymentAmountMonthly":42.8}
@@ -10,9 +10,9 @@ test.skip('default flow with mock', async ({page}) => {
     // response headers is application/json
     // route to intercept is https:
 
-    // I have to define the response body as json object
-
-    const amountResponse = { paymentAmountMonthly: 12.3 };
+    // define the response body as json object
+    const amountValue: string = '22.3'
+    const amountResponse = {paymentAmountMonthly: amountValue};
 
     // intercept the route only for specific query parameters (default values)
     await page.route('**/api/loan-calc?amount=500&period=12', async route => {
@@ -23,29 +23,31 @@ test.skip('default flow with mock', async ({page}) => {
         });
     });
 
-
     await page.goto(serviceURL);
-    await expect(page.getByTestId('ib-small-loan-calculator-field-monthlyPayment')).toBeVisible()
+    await expect(page.getByTestId('ib-small-loan-calculator-field-monthlyPayment')).toBeVisible();
+    const textContentElement = await page.getByTestId('ib-small-loan-calculator-field-monthlyPayment').textContent()
+    console.log(textContentElement)
+    const monthlyValue = textContentElement?.replace('€', '').trim() ?? ''
+    expect(monthlyValue).toBe(amountValue);
 })
 
-
-test('main flow', async ({page}) => {
-    await page.goto(serviceURL);
-    await page.getByTestId('id-small-loan-calculator-field-apply').click();
-    await page.getByTestId('login-popup-username-input').click();
-    await page.getByTestId('login-popup-username-input').fill('usern');
-    await page.getByTestId('login-popup-username-input').press('Tab');
-    await page.getByTestId('login-popup-password-input').fill('pwd');
-    await page.getByTestId('login-popup-continue-button').click();
-    await page.getByTestId('final-page-continue-button').click();
-    await page.getByTestId('final-page-success-ok-button').click();
+test('main flow', async ({ page }) => {
+  await page.goto(serviceURL);
+  await page.getByTestId('id-small-loan-calculator-field-apply').click();
+  await page.getByTestId('login-popup-username-input').click();
+  await page.getByTestId('login-popup-username-input').fill('usern');
+  await page.getByTestId('login-popup-username-input').press('Tab');
+  await page.getByTestId('login-popup-password-input').fill('pwd');
+  await page.getByTestId('login-popup-continue-button').click();
+  await page.getByTestId('final-page-continue-button').click();
+  await page.getByTestId('final-page-success-ok-button').click();
 });
 
-test('scroll to view flow', async ({page, request}) => {
-    await page.goto(serviceURL);
-    await page.getByTestId('id-image-element-button-image-1').click();
-    await expect(page.getByTestId('id-small-loan-calculator-field-apply')).toBeInViewport()
-    await page.getByTestId('id-image-element-button-image-2').click();
-    await expect(page.getByTestId('id-small-loan-calculator-field-apply')).toBeInViewport()
+test('redirect flow', async ({ page, request }) => {
+  await page.goto(serviceURL);
+  await page.getByTestId('id-image-element-button-image-1').click();
+  await expect( page.getByTestId('id-small-loan-calculator-field-apply') ).toBeInViewport()
+  await page.getByTestId('id-image-element-button-image-2').click();
+  await expect( page.getByTestId('id-small-loan-calculator-field-apply') ).toBeInViewport()
 })
 
